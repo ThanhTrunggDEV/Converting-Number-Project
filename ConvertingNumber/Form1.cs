@@ -21,6 +21,7 @@ namespace ConvertingNumber
         {
             int x = 5;
             MessageBox.Show("Hello Guys");
+            int y = 5;
         }
     }
 }
