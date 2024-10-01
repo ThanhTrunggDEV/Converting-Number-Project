@@ -17,28 +17,56 @@ namespace ConvertingNumber
             InitializeComponent();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+       public void ConvertToBinary(int value)
         {
-            try
-            {
-                int value = int.Parse(textBox1.Text);
-                string s = "";
+            List<int> number = new List<int>();
+            
+            
+                
                 while (value > 0)
                 {
-                    s += (value % 2).ToString();
+                    number.Add(value % 2);
+                    
                     value = value / 2;
+                    
                 }
-                 textBox1.Text = "";
-                for (int i = s.Length - 1; i >= 0; i--)
+
+                while(number.Count < 32)
                 {
-                    textBox2.Text += s[i];
+                    number.Add(0);
                 }
-            }
-            catch
+                number.Reverse();
+            textBox2.Text = string.Join("", number);
+
+        }
+       public int ConvertToDecimal(string binary)
+        {
+            double sum = 0;
+            int exp = binary.Length - 1;
+            for(int i = 0; i < binary.Length; i++)
             {
-                MessageBox.Show("Error"," ",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                sum += ((int)binary[i] - 48) * Math.Pow(2,exp--);
             }
+            return (int)sum;
+        }
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            textBox2.Text = "";
             
+            int value;
+            if (!int.TryParse(textBox1.Text, out value))
+            {
+                MessageBox.Show("Please enter number!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            else
+            {
+                ConvertToBinary(value);
+            }
         }
     }
+
+        
+    
 }
+
