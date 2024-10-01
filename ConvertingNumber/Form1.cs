@@ -17,11 +17,28 @@ namespace ConvertingNumber
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            int x = 5;
-            MessageBox.Show("Hello Guys");
-            int y = 5;
+            try
+            {
+                int value = int.Parse(textBox1.Text);
+                string s = "";
+                while (value > 0)
+                {
+                    s += (value % 2).ToString();
+                    value = value / 2;
+                }
+
+                for (int i = s.Length - 1; i >= 0; i--)
+                {
+                    textBox2.Text += s[i];
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error"," ",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            
         }
     }
 }
