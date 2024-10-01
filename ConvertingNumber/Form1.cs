@@ -20,24 +20,49 @@ namespace ConvertingNumber
        public void ConvertToBinary(int value)
         {
             List<int> number = new List<int>();
-            
-            
-                
+            if (value < 0)
+            {
+                value *= -1;
+                while (value > 0)
+                {
+                    int temp = value % 2;
+                    if (temp == 1) number.Add(0);
+                    else number.Add(1);
+                    value = value / 2;
+                }
+                while (number.Count < 32)
+                {
+                    number.Add(1);
+                }
+                number.Reverse();
+                for(int i = number.Count - 1; i >= 0; i--)
+                {
+                    if (number[i] == 0) {
+                        number[i] = 1;
+                        break; 
+                    }
+                    number[i] = 0;
+                }
+                textBox2.Text = string.Join("", number);
+            }
+            else
+            {
                 while (value > 0)
                 {
                     number.Add(value % 2);
-                    
                     value = value / 2;
-                    
                 }
-
-                while(number.Count < 32)
+                number.Reverse();
+                //string s = string.Join("", number);
+                number.Reverse();
+                while (number.Count < 32)
                 {
                     number.Add(0);
                 }
                 number.Reverse();
-            textBox2.Text = string.Join("", number);
-
+                textBox2.Text = string.Join("", number);
+                //return s;
+            }
         }
        public int ConvertToDecimal(string binary)
         {
@@ -49,6 +74,9 @@ namespace ConvertingNumber
             }
             return (int)sum;
         }
+
+       
+        #region Caculation Button
         private void button1_Click_1(object sender, EventArgs e)
         {
             textBox2.Text = "";
@@ -59,14 +87,15 @@ namespace ConvertingNumber
                 MessageBox.Show("Please enter number!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            else
+            else 
             {
                 ConvertToBinary(value);
             }
         }
+        #endregion
     }
 
-        
-    
+
+
 }
 
