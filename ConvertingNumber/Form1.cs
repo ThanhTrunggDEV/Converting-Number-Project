@@ -28,7 +28,7 @@ namespace ConvertingNumber
                     s += (value % 2).ToString();
                     value = value / 2;
                 }
-
+                 textBox1.Text = "";
                 for (int i = s.Length - 1; i >= 0; i--)
                 {
                     textBox2.Text += s[i];
