@@ -141,6 +141,7 @@ namespace ConvertingNumber
             else
             {
                 ConvertToBinary(value);
+                int test;
             }
         }
         #endregion
