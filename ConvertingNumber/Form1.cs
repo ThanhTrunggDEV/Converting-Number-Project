@@ -80,14 +80,17 @@ namespace ConvertingNumber
         private void button1_Click_1(object sender, EventArgs e)
         {
             textBox2.Text = "";
-            
             int value;
-            if (!int.TryParse(textBox1.Text, out value))
+            float Value;
+            if (!int.TryParse(textBox1.Text, out value) && !float.TryParse(textBox1.Text, out Value))
             {
                 MessageBox.Show("Please enter number!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if (!int.TryParse(textBox1.Text, out value) && float.TryParse(textBox1.Text, out Value )) {
+                MessageBox.Show("day la so thap phan");
+            }
 
-            else 
+            else
             {
                 ConvertToBinary(value);
             }
