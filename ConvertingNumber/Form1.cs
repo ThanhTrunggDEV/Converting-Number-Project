@@ -114,7 +114,6 @@ namespace ConvertingNumber
             Value -= intner;
             string s0 = ConvertToBinary(intner);
             string s1 = ConvertToBinary(127 + s0.Length - 1);
-            s0 = s0.Remove(0, 1);
             string s2 = s0 + multiply_by_2(Value);
             s = s + s1 + s2;
             for (int i = s.Length - 1; i < 32; i++)
@@ -129,7 +128,7 @@ namespace ConvertingNumber
         private void button1_Click_1(object sender, EventArgs e)
         {
             textBox2.Text = "";
-            int value; // value is a interger
+            int value; // value is an interger
             float Value; // Value is a decimal
             if (!int.TryParse(textBox1.Text, out value) && !float.TryParse(textBox1.Text, out Value))
             {
@@ -145,6 +144,8 @@ namespace ConvertingNumber
             }
         }
         #endregion
+
+        
     }
 
 
