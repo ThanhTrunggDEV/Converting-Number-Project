@@ -9,3 +9,13 @@ C:\Users\dovan\Source\Repos\Converting-Number-Project\ConvertingNumber\obj\Debug
 C:\Users\dovan\Source\Repos\Converting-Number-Project\ConvertingNumber\obj\Debug\ConvertingNumber.csproj.CoreCompileInputs.cache
 C:\Users\dovan\Source\Repos\Converting-Number-Project\ConvertingNumber\obj\Debug\ConvertingNumber.exe
 C:\Users\dovan\Source\Repos\Converting-Number-Project\ConvertingNumber\obj\Debug\ConvertingNumber.pdb
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\bin\Debug\ConvertingNumber.exe.config
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\bin\Debug\ConvertingNumber.exe
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\bin\Debug\ConvertingNumber.pdb
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.csproj.AssemblyReference.cache
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.Form1.resources
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.Properties.Resources.resources
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.csproj.GenerateResource.cache
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.csproj.CoreCompileInputs.cache
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.exe
+D:\Coding Space\C#\ConvertingNumber\ConvertingNumber\obj\Debug\ConvertingNumber.pdb
