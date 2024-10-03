@@ -19,130 +19,175 @@ namespace ConvertingNumber
             InitializeComponent();
         }
 
-        public string multiply_by_2 (float val)
+        public string MultiplyByTwo (float input)
         {
-            string s = "";
-            int cnt = 0;
-            while (cnt <= 8)
+            string result = "";
+            int bitCount = 0;
+            while (bitCount <= 8)
             {
-                val *= 2;
-                if (val >= 1)
+                input *= 2;
+                if (input >= 1)
                 {
-                    s += "1";
-                    val -= 1;
+                    result += "1";
+                    input -= 1;
                 }
                 else
                 {
-                    s += "0";
+                    result += "0";
                 }
-                cnt++;
+                bitCount++;
             }
-            return s;
+            return result;
         }
-        public string ConvertToBinary(int value)
+        public string DecimalToBinary(int input)          // Convert from Decimal to Binary
         {
             List<int> number = new List<int>();
-            if (value < 0)
+            if (input < 0)                               // if input is a negative interger
             {
-                value *= -1;
-                while (value > 0)
+                input *= -1;                            
+                while (input > 0)                       // Divide by two to get bit string and negate all the bits ( bit 0 -> 1, bit 1 -> 0 )
                 {
-                    int temp = value % 2;
-                    if (temp == 1) number.Add(0);
+                    int temp = input % 2;
+                    if (temp == 1) number.Add(0);        
                     else number.Add(1);
-                    value = value / 2;
+                    input = input / 2;
                 }
-                while (number.Count < 32)
+                while (number.Count < 32)                  
                 {
-                    number.Add(1);
-                }
-                number.Reverse();
+                    number.Add(1);                       // assume that this is a 32-bit machine and append until get enough 32 bits
+                }                                        // append 1 because this is a negative interger so the most significant bit must be 1
+                number.Reverse();                         // reverse the bit string to get bit string from bottom 
                 for(int i = number.Count - 1; i >= 0; i--)
                 {
-                    if (number[i] == 0) {
+                    if (number[i] == 0) {                 // add 1 bit to the bit string because of the formula
                         number[i] = 1;
                         break; 
                     }
                     number[i] = 0;
                 }
-                textBox2.Text = string.Join("", number);
-            }
-            else
+                binaryOutPut.Text = string.Join("", number);    // convert list to string and return result
+            }                                                      
+            else                                                 // if input is a positive interger
             {
-                while (value > 0)
+                while (input > 0)
                 {
-                    number.Add(value % 2);
-                    value = value / 2;
+                    number.Add(input % 2);                          // Divide by two to get bit string and negate all the bits ( bit 0 -> 1, bit 1 -> 0 )
+                    input = input / 2;
                 }
-                number.Reverse();
-                string s = string.Join("", number);
-                number.Reverse();
+                number.Reverse();                                   //reverse and store result to return aimed to use for other caculation
+                string result = string.Join("", number);
+                number.Reverse();                                   //reverse again to append more bits
                 while (number.Count < 32)
                 {
-                    number.Add(0);
-                }
+                    number.Add(0);                         // assume that this is a 32-bit machine and append until get enough 32 bits
+                }                                          // append 0 because this is a positive interger so the most significant bit must be 0
                 number.Reverse();
-                textBox2.Text = string.Join("", number);
-                return s;
+                binaryOutPut.Text = string.Join("", number);       //display output
+                return result;        
             }
             return "";
         }
-        public int ConvertToDecimal(string binary)
+        public int BinaryToDecimal(string binaryNumber)  // convert from binary to decimal
         {
-            double sum = 0;
-            int exp = binary.Length - 1;
-            for(int i = 0; i < binary.Length; i++)
+            double result = 0;                           
+            int exponent = binaryNumber.Length - 1;                  
+            for(int i = 0; i < binaryNumber.Length; i++)       // caculate follow formula 
             {
-                sum += ((int)binary[i] - 48) * Math.Pow(2,exp--);
+                result += ((int)binaryNumber[i] - 48) * Math.Pow(2,exponent--);
             }
-            return (int)sum;
+            return (int)result;
         }
 
-        public void ConvertToBinaryforDecimal(float Value)
+        public void FloatingPointPresentation(float input) // convert from float number to binary using floating point repesentation
         {
-            string s = "";
-            if (Value < 0)
+            string result = "";
+            if (input < 0)
             {
-                s += "1";
-                Value *= -1;
+                result += "1";   //sign
+                input *= -1;
             }
 
-            else s += "0";
+            else result += "0"; //sign 
             
 
-            int intner = Convert.ToInt32(Value);
-            Value -= intner;
-            string s0 = ConvertToBinary(intner);
-            string s1 = ConvertToBinary(127 + s0.Length - 1);
-            string s2 = s0 + multiply_by_2(Value);
-            s = s + s1 + s2;
-            for (int i = s.Length - 1; i < 32; i++)
+            int intergerPart = Convert.ToInt32(input); // Interger Part
+            input -= intergerPart;      // Decimal Part
+            string temp = DecimalToBinary(intergerPart);
+            string exponent = DecimalToBinary(127 + temp.Length - 1);
+            string mantissa = temp + MultiplyByTwo(input);
+            result = result + exponent + mantissa;
+            for (int i = result.Length - 1; i < 31; i++) // assume that this is a 32-bit machine and append
             {
-                s += "0";
+                result += "0";
             }
-            textBox2.Text = s;
+            binaryOutPut.Text = result;
         }
 
-       
-        #region Caculation Button
-        private void button1_Click_1(object sender, EventArgs e)
+        public void BinaryToHexaDecimal(string binaryNumber)
         {
-            textBox2.Text = "";
-            int value; // value is an interger
-            float Value; // Value is a decimal
-            if (!int.TryParse(textBox1.Text, out value) && !float.TryParse(textBox1.Text, out Value))
+            binaryNumber = binaryOutPut.Text;
+            string result = "";
+            while (binaryNumber.Length >= 4)
+            {
+                string fourBits = binaryNumber.Substring(0, 4);
+                binaryNumber = binaryNumber.Substring(4);
+                MessageBox.Show(fourBits + "\n" + binaryNumber);
+                if (fourBits == "0000")
+                    result += '0';
+                if (fourBits == "0001")
+                    result += "1";
+                if (fourBits == "0010")
+                    result += "2";
+                if (fourBits == "0011")
+                    result += "3";
+                if (fourBits == "0100")
+                    result += "4";
+                if (fourBits == "0101")
+                    result += "5";
+                if (fourBits == "0110")
+                    result += "6";
+                if (fourBits == "0111")
+                    result += "7";
+                if (fourBits == "1000")
+                    result += "8";
+                if (fourBits == "1001")
+                    result += "9";
+                if (fourBits == "1010")
+                    result += "A";
+                if (fourBits == "1011")
+                    result += "B";
+                if (fourBits == "1100")
+                    result += "C";
+                if (fourBits == "1101")
+                    result += "D";
+                if (fourBits == "1110")
+                    result += "E";
+                if (fourBits == "1111")
+                    result += "F";
+            }
+            hexadecimalOutPut.Text = result;
+        }
+        #region Caculation Button
+        private void CaculateButton_Click_Event_1(object sender, EventArgs e)
+        {
+            
+            binaryOutPut.Text = "";
+            int value; // input is an interger
+            float Value; // input is a decimal
+            if (!int.TryParse(inputData.Text, out value) && !float.TryParse(inputData.Text, out Value))
             {
                 MessageBox.Show("Please enter number!", "error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!int.TryParse(textBox1.Text, out value) && float.TryParse(textBox1.Text, out Value )) {
-                ConvertToBinaryforDecimal(Value);
+            else if (!int.TryParse(inputData.Text, out value) && float.TryParse(inputData.Text, out Value)) {
+                FloatingPointPresentation(Value);
             }
 
             else
             {
-                ConvertToBinary(value);
-                int test;
+                DecimalToBinary(value);
             }
+            BinaryToHexaDecimal(binaryOutPut.Text);
+            
         }
         #endregion
 
