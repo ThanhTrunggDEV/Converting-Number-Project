@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,10 @@ namespace ConvertingNumber
             InitializeComponent();
         }
 
-        public string MultiplyByTwo (float input)
+        public string MultiplyByTwo (float input, int bitCount)
         {
             string result = "";
-            int bitCount = 0;
-            while (bitCount <= 8)
+            while (bitCount < 23)  //start bitCount to 23
             {
                 input *= 2;
                 if (input >= 1)
@@ -114,7 +114,8 @@ namespace ConvertingNumber
             input -= intergerPart;      // Decimal Part
             string temp = DecimalToBinary(intergerPart);
             string exponent = DecimalToBinary(127 + temp.Length - 1);
-            string mantissa = temp + MultiplyByTwo(input);
+            temp = temp.Remove(0, 1);
+            string mantissa = temp + MultiplyByTwo(input, temp.Length);
             result = result + exponent + mantissa;
             for (int i = result.Length - 1; i < 31; i++) // assume that this is a 32-bit machine and append
             {
@@ -131,7 +132,7 @@ namespace ConvertingNumber
             {
                 string fourBits = binaryNumber.Substring(0, 4);
                 binaryNumber = binaryNumber.Substring(4);
-                MessageBox.Show(fourBits + "\n" + binaryNumber);
+                //MessageBox.Show(fourBits + "\n" + binaryNumber);
                 if (fourBits == "0000")
                     result += '0';
                 if (fourBits == "0001")
@@ -172,6 +173,7 @@ namespace ConvertingNumber
         {
             
             binaryOutPut.Text = "";
+           
             int value; // input is an interger
             float Value; // input is a decimal
             if (!int.TryParse(inputData.Text, out value) && !float.TryParse(inputData.Text, out Value))
@@ -187,11 +189,17 @@ namespace ConvertingNumber
                 DecimalToBinary(value);
             }
             BinaryToHexaDecimal(binaryOutPut.Text);
+          
+
+        }
+
+        #endregion
+        private void inputTextBoxClickEvent(object sender, EventArgs e)
+        {
+            inputData.Text = string.Empty;
             
         }
-        #endregion
-
-        
+      
     }
 
 
